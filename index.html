@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metrónomo Maker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="app-header">
+    <h1>🎵 Metrónomo Maker</h1>
+    <p class="subtitle">Crea pistas de metrónomo con cambios de tempo y compás, y expórtalas a MP3 para ensayar.</p>
+  </header>
+
+  <section class="card">
+    <label class="song-name-label">
+      Nombre de la canción
+      <input type="text" id="song-name" placeholder="Mi canción">
+    </label>
+  </section>
+
+  <section class="card">
+    <div class="table-wrapper">
+      <table id="sections-table">
+        <thead>
+          <tr>
+            <th class="col-idx">#</th>
+            <th class="col-name">Sección</th>
+            <th class="col-compas">Compás</th>
+            <th class="col-tempo">Tempo (BPM)</th>
+            <th class="col-bars">Compases</th>
+            <th class="col-duration">Duración</th>
+            <th class="col-actions">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="sections-body">
+        </tbody>
+      </table>
+    </div>
+    <button id="add-section-btn" class="btn btn-secondary">+ Añadir sección</button>
+  </section>
+
+  <section class="card controls-card">
+    <div class="totals">
+      <span>Duración total: <strong id="total-duration">0:00</strong></span>
+      <span id="playback-status" class="playback-status"></span>
+    </div>
+    <div class="controls">
+      <button id="play-btn" class="btn btn-primary">▶ Reproducir</button>
+      <button id="export-btn" class="btn btn-primary">⬇ Exportar MP3</button>
+      <button id="save-btn" class="btn btn-secondary">💾 Guardar canción</button>
+      <button id="load-btn" class="btn btn-secondary">📂 Cargar canción</button>
+      <input type="file" id="load-input" accept="application/json" hidden>
+    </div>
+    <p id="status-msg" class="status-msg"></p>
+  </section>
+
+  <footer class="app-footer">
+    <p>El compás define cuántos clicks hay por compás (el acento suena en el primer tiempo). El tempo en BPM marca la velocidad de cada click. En una sección "Rampa" el tempo sube o baja progresivamente entre el BPM inicial y el final a lo largo de toda la sección.</p>
+  </footer>
+</div>
+
+<script src="lib/lame.min.js"></script>
+<script src="core.js"></script>
+<script src="scheduler.js"></script>
+<script src="mp3export.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

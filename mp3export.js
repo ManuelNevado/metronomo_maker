@@ -14,10 +14,26 @@ async function exportSongToMp3(sections, { kbps = 128 } = {}) {
   events.forEach((ev) => playClick(offlineCtx, ev.time, ev.accent));
 
   const audioBuffer = await offlineCtx.startRendering();
-  const samples = floatTo16BitPCM(audioBuffer.getChannelData(0));
+  const channelData = audioBuffer.getChannelData(0);
+  normalizePeak(channelData);
+  const samples = floatTo16BitPCM(channelData);
   const mp3Chunks = encodeMp3(samples, sampleRate, kbps);
 
   return new Blob(mp3Chunks, { type: 'audio/mp3' });
+}
+
+/** Escala la señal para que su pico llegue justo al máximo volumen posible sin clipping. */
+function normalizePeak(channelData, target = 0.98) {
+  let peak = 0;
+  for (let i = 0; i < channelData.length; i++) {
+    const abs = Math.abs(channelData[i]);
+    if (abs > peak) peak = abs;
+  }
+  if (peak === 0) return;
+  const scale = target / peak;
+  for (let i = 0; i < channelData.length; i++) {
+    channelData[i] *= scale;
+  }
 }
 
 function floatTo16BitPCM(float32Array) {

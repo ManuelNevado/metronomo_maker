@@ -108,11 +108,54 @@ td {
   vertical-align: middle;
 }
 
+tr.start-selected {
+  background: var(--accent-soft);
+}
+
+tr.start-selected .col-idx {
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+
 tr.playing {
   background: var(--playing);
 }
 
-.col-idx { width: 28px; color: var(--muted); }
+.col-idx {
+  width: 28px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.col-idx:hover {
+  color: var(--accent-dark);
+}
+
+.col-drag {
+  width: 20px;
+  padding-left: 2px;
+  padding-right: 0;
+}
+
+.drag-handle {
+  cursor: grab;
+  color: var(--muted);
+  user-select: none;
+  font-size: 1rem;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+tr.dragging {
+  opacity: 0.5;
+}
+
+tr.drag-over {
+  box-shadow: inset 0 2px 0 var(--accent);
+}
 .col-name input { width: 130px; }
 .num-small { width: 52px; }
 .num-medium { width: 64px; }
@@ -190,8 +233,17 @@ tr.playing {
   cursor: not-allowed;
 }
 
-#add-section-btn {
+.table-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
   margin-top: 12px;
+}
+
+.col-select {
+  width: 20px;
+  padding-left: 8px;
+  padding-right: 0;
 }
 
 .controls-card {

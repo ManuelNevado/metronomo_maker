@@ -25,6 +25,8 @@
       <table id="sections-table">
         <thead>
           <tr>
+            <th class="col-select"><input type="checkbox" id="select-all" title="Seleccionar todo"></th>
+            <th class="col-drag"></th>
             <th class="col-idx">#</th>
             <th class="col-name">Sección</th>
             <th class="col-compas">Compás</th>
@@ -38,7 +40,10 @@
         </tbody>
       </table>
     </div>
-    <button id="add-section-btn" class="btn btn-secondary">+ Añadir sección</button>
+    <div class="table-actions">
+      <button id="add-section-btn" class="btn btn-secondary">+ Añadir sección</button>
+      <button id="duplicate-btn" class="btn btn-secondary" disabled>⧉ Duplicar selección</button>
+    </div>
   </section>
 
   <section class="card controls-card">

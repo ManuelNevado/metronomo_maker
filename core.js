@@ -50,7 +50,7 @@ function playClick(ctx, time, accent) {
   osc.type = 'square';
   osc.frequency.value = accent ? 1500 : 900;
 
-  const peak = accent ? 0.9 : 0.55;
+  const peak = accent ? 1.0 : 0.75;
   gain.gain.setValueAtTime(0, time);
   gain.gain.linearRampToValueAtTime(peak, time + 0.001);
   gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.03);

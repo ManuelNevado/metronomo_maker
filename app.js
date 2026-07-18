@@ -38,6 +38,7 @@ const el = {
   playbackStatus: document.getElementById('playback-status'),
   playBtn: document.getElementById('play-btn'),
   exportBtn: document.getElementById('export-btn'),
+  midiBtn: document.getElementById('midi-btn'),
   saveBtn: document.getElementById('save-btn'),
   loadBtn: document.getElementById('load-btn'),
   loadInput: document.getElementById('load-input'),
@@ -350,6 +351,27 @@ el.exportBtn.addEventListener('click', async () => {
 function sanitizeFilename(name) {
   return name.trim().replace(/[^a-zA-Z0-9_\-áéíóúÁÉÍÓÚñÑ ]/g, '').replace(/\s+/g, '_') || 'metronomo';
 }
+
+// --- Exportar a MIDI ---
+el.midiBtn.addEventListener('click', async () => {
+  scheduler.stop();
+  el.midiBtn.disabled = true;
+  el.statusMsg.textContent = 'Generando MIDI…';
+
+  await new Promise((resolve) => setTimeout(resolve, 30));
+
+  try {
+    const blob = exportSongToMidi(song.sections, { name: song.name || 'Metrónomo' });
+    const filename = `${sanitizeFilename(song.name || 'metronomo')}.mid`;
+    downloadBlob(blob, filename);
+    el.statusMsg.textContent = `Listo: ${filename}`;
+  } catch (err) {
+    console.error(err);
+    el.statusMsg.textContent = `Error al exportar: ${err.message}`;
+  } finally {
+    el.midiBtn.disabled = false;
+  }
+});
 
 // --- Guardar / cargar canción como JSON ---
 el.saveBtn.addEventListener('click', () => {

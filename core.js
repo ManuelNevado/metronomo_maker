@@ -29,6 +29,7 @@ function buildClickTimeline(sections) {
         sectionIndex,
         bar: Math.floor(i / beatsPerBar),
         beat: beatInBar,
+        bpm,
       });
 
       t += beatDuration;
